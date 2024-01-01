@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4l2nc4i6pvq7"]
+
+[ext_resource type="TileSet" uid="uid://2pc3ylacfkgq" path="res://assets/tileset/tile_set.tres" id="1_0i2k0"]
+[ext_resource type="Script" path="res://scenes/block_node.gd" id="2_0u71e"]
+
+[node name="BlockNode" type="TileMap"]
+y_sort_enabled = true
+texture_filter = 1
+tile_set = ExtResource("1_0i2k0")
+format = 2
+layer_0/name = "water"
+layer_0/z_index = -1
+layer_0/navigation_enabled = false
+layer_1/name = "soil"
+layer_1/z_index = -1
+layer_1/navigation_enabled = false
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "grassland"
+layer_2/z_index = -1
+layer_2/navigation_enabled = false
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "grass"
+layer_3/y_sort_enabled = true
+layer_3/navigation_enabled = false
+layer_3/tile_data = PackedInt32Array()
+script = ExtResource("2_0u71e")

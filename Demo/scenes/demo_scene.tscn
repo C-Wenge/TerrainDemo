@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://pbkwhy3b5bey"]
+
+[ext_resource type="Script" path="res://scenes/demo_scene.gd" id="1_wlbae"]
+[ext_resource type="TileSet" uid="uid://2pc3ylacfkgq" path="res://assets/tileset/tile_set.tres" id="2_e7g81"]
+[ext_resource type="PackedScene" uid="uid://c4l2nc4i6pvq7" path="res://scenes/block_node.tscn" id="3_44g3d"]
+[ext_resource type="PackedScene" uid="uid://cs5245kakxnpt" path="res://scenes/player.tscn" id="4_5j87r"]
+[ext_resource type="FontFile" uid="uid://3nm64q3y2x5h" path="res://assets/fonts/vonwaon_bitmap-12px.ttf" id="5_0iequ"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_48fyg"]
+frequency = 0.02
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_puwa6"]
+frequency = 0.02
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7les5"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_top = 10
+border_color = Color(1, 1, 1, 0.784314)
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.196078)
+shadow_size = 4
+shadow_offset = Vector2(2, 2)
+
+[node name="DemoScene" type="Node2D" node_paths=PackedStringArray("block_parent", "player")]
+script = ExtResource("1_wlbae")
+main_noise = SubResource("FastNoiseLite_48fyg")
+tree_noise = SubResource("FastNoiseLite_puwa6")
+tile_set = ExtResource("2_e7g81")
+block_node = ExtResource("3_44g3d")
+block_size = Vector2i(20, 20)
+block_parent = NodePath("World/Blocks")
+player = NodePath("World/Player")
+load_range_radius = 3
+
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Blocks" type="Node2D" parent="World"]
+y_sort_enabled = true
+
+[node name="Player" parent="World" node_paths=PackedStringArray("camera") instance=ExtResource("4_5j87r")]
+y_sort_enabled = true
+move_speed = 500.0
+camera = NodePath("Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="World/Player"]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Background" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 130.0
+offset_bottom = 110.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7les5")
+
+[node name="Mc" type="MarginContainer" parent="CanvasLayer/Background"]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+
+[node name="Vbc" type="VBoxContainer" parent="CanvasLayer/Background/Mc"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="FpsLabel" type="Label" parent="CanvasLayer/Background/Mc/Vbc"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_0iequ")
+text = "FPS:60"
+horizontal_alignment = 1
+
+[node name="DesLabel" type="Label" parent="CanvasLayer/Background/Mc/Vbc"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_0iequ")
+theme_override_font_sizes/font_size = 12
+text = "W,S,A,D移动
+鼠标滚轮控制视角
+大小"
+horizontal_alignment = 1
